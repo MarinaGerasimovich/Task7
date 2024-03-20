@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+</head>
+<body>
+<h2>All Users</h2>
+<table>
+    <style>
+        table th, table td {padding: 5px;}
+        .operations-cell {text-align: center;}
+        .form-inline {display: inline;}
+    </style>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th class="operations-cell">Operations</th>
+    </tr>
+    <tr>
+        <th colspan="3"></th>
+    </tr>
+    <div th:each="user : ${users}">
+        <tr>
+            <td><span th:text="${user.name}"></span></td>
+            <td><span th:text="${user.surname}"></span></td>
+            <td><span th:text="${user.age}"></span></td>
+            <td class="operations-cell">
+                <form th:action="@{/updateUser(id=${user.id})}" method="post" class="form-inline">
+                    <input type="submit" value="Update">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                </form>
+                <form th:action="@{/deleteUser(id=${user.id})}" method="post" class="form-inline">
+                    <input type="submit" value="Delete">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                </form>
+            </td>
+        </tr>
+    </div>
+</table>
+<input type="submit" value="Add" onclick="window.location.href = 'addNewUser'"/>
+</body>
+</html>
+
